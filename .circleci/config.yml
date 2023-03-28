@@ -9,27 +9,25 @@ orbs:
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   deploy_infra:
-    jobs:
-          - terraform/fmt
-    checkout: true
-    -terraform/validate:
-        checkout: true
-         requires:
-         - terraform/fmt
-    -terraform/plan:
-        checkout: true
-        persist-workspace: true
-                  requires:
-        - terraform/validate
-    -terraform/apply:
-        attach-workspace: true
-          filters:
-          branches:
-            only: main
-        requires:
-          - terraform/plan
-  Workflows:
+      jobs:
+        - terraform/fmt:
+            checkout : true
+        - terraform/validate:
+            checkout : true
+        - terraform/plan:
+            checkout : true
+            requires:
+              - terraform/validate
+        - terraform/apply:
+            attach-workspace: true
+            
+            filters:
+              branches:
+                only: main
+            requires:
+              - terraform/plan
+Workflows:
   deploy_infra:
-  jobs:
+    jobs:
       - terraform
-   context : terraform
+        
