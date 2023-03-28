@@ -17,7 +17,6 @@ workflows:
 
     - terraform/plan:
         checkout: true
-        #var: client_secret=${client_secret}
         context: terraform
         persist-workspace: true
         path: .
