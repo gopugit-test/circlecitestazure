@@ -4,7 +4,7 @@ version: 2.1
 
 orbs:
   # https://circleci.com/developer/orbs/orb/circleci/terraform
-  terraform: circleci/terraform@3.0.0
+  terraform: circleci/terraform@3.1
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -12,22 +12,24 @@ workflows:
     jobs:
     - terraform/validate:
         checkout: true
-        context: terraform
-        path: .
+                
 
     - terraform/plan:
         checkout: true
-        context: terraform
-          requires:
+        attach-workspace: true
+                  requires:
         - terraform/validate
     - terraform/apply:
         attach-workspace: true
-        context: terraform
-        path: .
-        filters:
+                  
+          filters:
           branches:
             only: main
         requires:
           - terraform/plan
-
-context : "terraform"
+          
+  Workflows:
+  deploy_infra:
+  jobs:
+  - terraform
+   context : terraform
