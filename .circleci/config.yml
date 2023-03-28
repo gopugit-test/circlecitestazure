@@ -2,9 +2,7 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 orbs:
-    azure-cli: circleci/azure-cli@1.2.2
-
-  # https://circleci.com/developer/orbs/orb/circleci/terraform
+      # https://circleci.com/developer/orbs/orb/circleci/terraform
   terraform: circleci/terraform@3.1
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -13,16 +11,16 @@ workflows:
     jobs:
     -terraform/fmt:
     checkout: true
-    - terraform/validate:
+    -terraform/validate:
         checkout: true
          requires:
          -terraform/fmt
-    - terraform/plan:
+    -terraform/plan:
         checkout: true
         attach-workspace: true
                   requires:
         - terraform/validate
-    - terraform/apply:
+    -terraform/apply:
         attach-workspace: true
           filters:
           branches:
@@ -32,5 +30,5 @@ workflows:
   Workflows:
   deploy_infra:
   jobs:
-  - terraform
+      -terraform
    context : terraform
