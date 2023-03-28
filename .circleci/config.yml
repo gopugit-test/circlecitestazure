@@ -29,7 +29,7 @@ workflows:
         path: .
         filters:
           branches:
-            only: circleci-project-setup
+            only: main
         requires:
           - terraform/plan
 
