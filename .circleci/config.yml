@@ -10,18 +10,17 @@ orbs:
 workflows:
   deploy_infra:
     jobs:
-      - azure-cli/login-with-service-principal
-    -terraform/fmt:
+          - terraform/fmt
     checkout: true
     -terraform/validate:
         checkout: true
          requires:
-         -terraform/fmt
+         - terraform/fmt
     -terraform/plan:
         checkout: true
         attach-workspace: true
                   requires:
-        -terraform/validate
+        - terraform/validate
     -terraform/apply:
         attach-workspace: true
           filters:
@@ -32,5 +31,5 @@ workflows:
   Workflows:
   deploy_infra:
   jobs:
-      -terraform
+      - terraform
    context : terraform
