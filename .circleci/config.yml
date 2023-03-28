@@ -10,10 +10,12 @@ orbs:
 workflows:
   deploy_infra:
     jobs:
+    -terraform/fmt:
+    checkout: true
     - terraform/validate:
         checkout: true
-                
-
+         requires:
+         -terraform/fmt
     - terraform/plan:
         checkout: true
         attach-workspace: true
@@ -21,7 +23,6 @@ workflows:
         - terraform/validate
     - terraform/apply:
         attach-workspace: true
-                  
           filters:
           branches:
             only: main
